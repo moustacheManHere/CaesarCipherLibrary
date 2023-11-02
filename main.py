@@ -35,7 +35,19 @@ def process_cipher_operation(inputStr):
     encrypt = inputStr == "E" or inputStr == "e"
     operation = "encrypt" if encrypt else "decrypt"
     text = input(f"\nPlease type in the text you want to {operation}:\n")
-    key = input("\nEnter the cipher key: ")
+    tries = 0  # give them three tries only to avoid infinite loops
+    key = "lolzz"
+    while not isinstance(key,int) and tries < 3:
+        key = input("\nEnter the cipher key: ")
+        try:
+            key = int(key)
+        except:
+            print("Couldn't convert to integer...")
+        tries += 1
+    if tries == 3 and not isinstance(key,int):
+        print("Sorry a valid key was not received.")
+        return 0
+        
     textObj = CipherText(text)
     print(f"\nPlaintext:\t{textObj.txt}")
     if encrypt:
@@ -47,7 +59,7 @@ def process_cipher_operation(inputStr):
 
 def main():
 
-    input("\nPress enter key, to continue....  ")
+    input("\nPress enter to continue....  ")
     printChoice()
     choice = input("Enter choice: ")
 
@@ -67,8 +79,12 @@ def main():
         while choice not in ["E", "D", "e", "d"] and tries < 3:
             choice = input('\nEnter "E" for Encrypt or "D" for Decrypt: ')
             tries += 1
-        process_cipher_operation(choice)
+        if tries == 3 and choice not in ["E", "D", "e", "d"]:
+            print("\nSorry a valid key was not received.")
+        else:
+            process_cipher_operation(choice)
         main()
+
 
 
 if __name__ == "__main__":
