@@ -2,6 +2,7 @@ from Ram.IO.InputHandler import InputHandler
 from Ram.Cipher.CipherFile import CipherFile
 from Ram.Cipher.CipherText import CipherText
 from Ram.IO.OutputHandler import OutputHandler
+from Ram.Cipher.CipherFreq import CipherFreq
 
 class CipherProcessor:
     def __init__(self):
@@ -25,3 +26,11 @@ class CipherProcessor:
         if new_filename == 0:
             return 0
         self.outputter.cipherFileOutput(text_obj,key,encrypt,new_filename)
+    def showFreqStat(self):
+        filename = self.inputter.getFilename("Please enter the filename: ")
+        if not filename:
+            return 0
+        text_obj = CipherFreq(filename)
+        letter_frequencies = text_obj.calcFreq()
+        top_5_letters = text_obj.getTopFreq()
+        self.outputter.printGraph(letter_frequencies,top_5_letters)

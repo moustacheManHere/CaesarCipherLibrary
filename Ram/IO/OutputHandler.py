@@ -1,3 +1,4 @@
+import math
 class OutputHandler:
     def __init__(self):
         self.HEADER = """
@@ -55,3 +56,38 @@ class OutputHandler:
                 text_obj.decryptFile(new_filename, key)
         except:
             print("Warning: Failed to encrypt/decrypt given file! Exiting...")
+    def printGraph(self,letter_frequencies,top_5_letters):
+        printArray = []
+        alpha = list(letter_frequencies.keys())
+        for i in range(len(alpha)+2):
+            printArray.append([" "]*len(alpha)*3)
+
+        for i in range(len(alpha)*3):
+            if i % 3 == 0:
+                printArray[-1][i] = alpha[int(i/3)].capitalize()
+            if i != len(alpha)*3 - 1:
+                printArray[-2][i] = "_"
+
+        for i in range(len(printArray) - 1):
+            if i != len(printArray) - 2:
+                printArray[i][-1] = f"| {alpha[i].capitalize()}- {letter_frequencies[alpha[i]]}%"
+            else:
+                printArray[i][-1] = "|"
+
+        sideArray = ["TOP 5 FREQ", "----------"] + [f"| {i.capitalize()}- {top_5_letters[i]} %" for i in top_5_letters.keys()]
+
+        for i in range(10,17):
+            printArray[i].append("\t\t"+sideArray[i-10])
+
+        starArr = []
+        for i in alpha:
+            starArr.append(math.ceil((letter_frequencies[i])/100*26))
+
+
+        for i,v in enumerate(starArr):
+            verticalIndex = i * 3
+            for i in range(v):
+                printArray[25-i][verticalIndex] = "*"
+
+        # print everything
+        [print("".join(i)) for i in printArray]

@@ -23,6 +23,9 @@ class CipherCLI:
         elif choice == 2:
             self.getEncDecInput(self.processor.process_cipher_file)
             self.run()
+        elif choice == 3:
+            self.processor.showFreqStat()
+            self.run()
 
     def getEncDecInput(self,func):
         first_choice = self.inputter.getStrInput('\nEnter "E" for Encrypt or "D" for Decrypt: ', ["E", "D", "e", "d"])
