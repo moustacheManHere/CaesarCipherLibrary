@@ -2,7 +2,7 @@ from Ram.Cipher.CipherFile import CipherFile
 
 class CipherFreq(CipherFile):
     def calcFreq(self):
-        input_string = self.txt.lower()
+        input_string = self.txt.lower() # later change to allow capital
         letter_counts = {}
         total_letters = 0
 

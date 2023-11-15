@@ -3,6 +3,7 @@ from Ram.Cipher.CipherFile import CipherFile
 from Ram.Cipher.CipherText import CipherText
 from Ram.IO.OutputHandler import OutputHandler
 from Ram.Cipher.CipherFreq import CipherFreq
+from Ram.Cipher.CipherBrute import CipherBrute
 
 class CipherProcessor:
     def __init__(self):
@@ -34,3 +35,25 @@ class CipherProcessor:
         letter_frequencies = text_obj.calcFreq()
         top_5_letters = text_obj.getTopFreq()
         self.outputter.printGraph(letter_frequencies,top_5_letters)
+
+    def BruteForceFile(self):
+        filename = self.inputter.getFilename("\nPlease enter the file to analyze: ")
+        if not filename:
+            return 0
+        refFilename = self.inputter.getFilename("\nPlease enter the reference frequencies file: ")
+        if not filename:
+            return 0
+        
+        text_obj = CipherBrute(filename,refFilename)
+        key = text_obj.breakCipher()
+        print("The inferred caesar cipher key is: ",key)
+        choice = self.inputter.getStrInput("Would you want to decrypt this file using this key? y/n: ",
+                                           ["y","n"])
+        if not choice or choice == "n":
+            return 0
+        
+        new_filename = self.inputter.getNewFileName()
+        if new_filename == 0:
+            return 0
+        self.outputter.cipherFileOutput(text_obj,key,False,new_filename)
+
