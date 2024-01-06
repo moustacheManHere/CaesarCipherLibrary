@@ -1,0 +1,9 @@
+Please select your choice: (1,2,3,4,5,6,7,8)
+        1. Encrypt/Decrypt Message
+        2. Encrypt/Decrypt File
+        3. Analyze letter frequency distribution
+        4. Infer Caesar cipher key from file
+        5. Analyze and sort encrypted files
+        6. Encrypt/Decrypt using Vigenere Cipher
+        7. Batch Encrypt/Decrypt Encrypted Files
+        8. Exit
